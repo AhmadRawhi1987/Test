@@ -25,11 +25,7 @@ namespace Application.MakeServices
         {
             try
             {
-                Dictionary<string, string> conditions = new Dictionary<string, string>();
-                if (!string.IsNullOrEmpty(makeFilterDto.Make_Name))
-                    conditions.Add(MemberInfoGetting.GetMemberName(() => makeFilterDto.Make_Name) , makeFilterDto.Make_Name);
-                
-                var make = await _makeReadRepositoryCSV.FirstOrDefaultAsync(conditions);
+                var make = await _makeReadRepositoryCSV.FirstOrDefault("CarMake.csv", x=>(string.IsNullOrEmpty(makeFilterDto.Make_Name) || x.make_name.ToLower().Trim() == makeFilterDto.Make_Name.ToLower().Trim()));
                 var result = _mapper.Map<MakeDto>(make);
                 return result;
             }

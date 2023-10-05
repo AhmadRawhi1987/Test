@@ -8,6 +8,6 @@ namespace DTOs.ModelsDtos
 {
     public class ModelDto
     {
-        public string Model_Name { set; get; }
+        public List<string> Models { set; get; }
     }
 }

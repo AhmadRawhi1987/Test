@@ -9,7 +9,6 @@ namespace Application.Repository
 {
     public interface IReadRepositoryApi<T> where T : class
     {
-        Task<T> FirstOrDefaultAsync(Dictionary<string, string> condition = null);
-        Task<List<T>> ListAsync(Dictionary<string, string> condition = null);
+        Task<List<T>> List(Dictionary<string, string> condition = null);
     }
 }

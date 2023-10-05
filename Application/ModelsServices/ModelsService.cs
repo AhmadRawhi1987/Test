@@ -1,4 +1,6 @@
 ﻿using Application.BaseServices;
+using Application.Common;
+using Application.ExceptionType;
 using Application.MakeServices;
 using Application.Repository;
 using Domain.Makes;
@@ -25,13 +27,31 @@ namespace Application.ModelsServices
             _makeService = makeService;
         }
 
-        public async Task<List<ModelDto>> GetAllModels(string modelyear,string make)
+        public async Task<ModelDto> GetAllModels(string modelyear,string make)
         {
-            var makeEntity = await _makeService.GetMake(new MakeFilterDto() { Make_Name = make });
-            Dictionary<string, string> conditions = new Dictionary<string, string>();
-            var models = await _modelReadRepositoryApi.ListAsync(conditions);
-            var result = _mapper.Map<List<ModelDto>>(models);
-            return result;
+            try
+            {
+                var makeEntity = await _makeService.GetMake(new MakeFilterDto() { Make_Name = make });
+                if (makeEntity == null)
+                {
+                    throw new ValidationException("Make Name " + make + " does not exist");
+                }
+                Dictionary<string, string> conditions = new Dictionary<string, string>();
+                conditions.Add("makeId", makeEntity.make_id.ToString());
+                conditions.Add(nameof(modelyear), modelyear);
+                
+                var models = await _modelReadRepositoryApi.List(conditions);
+                var result = _mapper.Map<ModelDto>(models);
+                return result;
+            }
+            catch (ValidationException ex)
+            {
+                throw new ValidationException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

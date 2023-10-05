@@ -1,4 +1,6 @@
-﻿using Mapster;
+﻿using Domain.Models;
+using DTOs.ModelsDtos;
+using Mapster;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,8 @@ namespace Application.Mapping
     {
         public void Register(TypeAdapterConfig config)
         {
-
+            config.NewConfig<List<Model>, ModelDto>()
+                .Map(des => des.Models, src => (src.Select(x=>x.Model_Name)));
         }
     }
 }

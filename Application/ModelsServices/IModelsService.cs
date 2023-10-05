@@ -9,6 +9,6 @@ namespace Application.ModelsServices
 {
     public interface IModelsService
     {
-        Task<List<ModelDto>> GetAllModels(string modelyear, string make);
+        Task<ModelDto> GetAllModels(string modelyear, string make);
     }
 }

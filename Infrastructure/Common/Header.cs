@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Makes
+namespace Infrastructure.Common
 {
-    public class Make
+    public class Header<T> where T:class
     {
-        public int make_id { get; set; }
-        public string make_name { get; set; }
+        public List<T> Results { set; get; }
     }
 }

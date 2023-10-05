@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Test.Middleware;
 
 namespace Test
 {
@@ -53,7 +54,7 @@ namespace Test
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

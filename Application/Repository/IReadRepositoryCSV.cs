@@ -9,7 +9,7 @@ namespace Application.Repository
 {
     public interface IReadRepositoryCSV<T> where T : class
     {
-        Task<T> FirstOrDefaultAsync(Dictionary<string, string> condition = null);
-        Task<List<T>> ListAsync(Dictionary<string, string> condition = null);
+        Task<T> FirstOrDefault(string fileName, Expression<Func<T, bool>> condition = null);
+        Task<List<T>> List(string fileName, Expression<Func<T, bool>> condition = null);
     }
 }
